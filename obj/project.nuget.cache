@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "McF8Buy5IPzNdkeP6lvbjgG8ojxXTCFV7Ta6JP9VaMsGH+BtJBOoHgcf1abAYuEtTzhndQbQYgM7y4lgniyPLg==",
+  "dgSpecHash": "O6yBseDO01zgXa+2/XQGc3Afw9LDFsuCr8gXaL83bpuMxk/FCf/MmnrrJ3LVIt7JC/ZE0PiNuHoyzWOGXMLqqg==",
   "success": true,
   "projectFilePath": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/WebApi_AspNet_Core.csproj",
   "expectedPackageFiles": [
@@ -78,7 +78,10 @@
     "/Users/danielsaes/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
     "/Users/danielsaes/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",
     "/Users/danielsaes/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "/Users/danielsaes/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512"
+    "/Users/danielsaes/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
+    "/Users/danielsaes/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
+    "/Users/danielsaes/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
+    "/Users/danielsaes/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.16/microsoft.netcore.app.host.osx-arm64.7.0.16.nupkg.sha512"
   ],
   "logs": []
 }

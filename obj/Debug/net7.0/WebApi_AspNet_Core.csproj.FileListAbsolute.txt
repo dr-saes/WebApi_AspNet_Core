@@ -68,7 +68,6 @@
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.WebApi_AspNet_Core.props
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/staticwebassets.pack.json
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/scopedcss/bundle/WebApi_AspNet_Core.styles.css
-/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/WebApi_AspNet_Core.csproj.CopyComplete
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/WebApi_AspNet_Core.dll
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/refint/WebApi_AspNet_Core.dll
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/WebApi_AspNet_Core.pdb
@@ -83,3 +82,5 @@
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/bin/Debug/net7.0/Microsoft.Extensions.Identity.Stores.dll
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/bin/Debug/net7.0/Microsoft.Extensions.Options.dll
 /Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/WebApi_AspNet_Core.sourcelink.json
+/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/Debug/net7.0/WebApi_A.2D230159.Up2Date
