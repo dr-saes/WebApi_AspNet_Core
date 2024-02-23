@@ -4,7 +4,7 @@ using WebApi_AspNet_Core;
 var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddControllers();
-//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();
 
 builder
     .AddBasicConfig()

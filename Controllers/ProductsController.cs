@@ -12,10 +12,12 @@ namespace WebApi_AspNet_Core;
 public class ProductsController : ControllerBase
 {
     private readonly ApiDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public ProductsController(ApiDbContext context)
+    public ProductsController(ApiDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     // GET: api/Products
@@ -40,11 +42,12 @@ public class ProductsController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
+        var error404 = _configuration.GetValue<string>("ProductErrorMessages:error404");
         if (_context.Products == null) return NotFound();
 
         var product = await _context.Products.FindAsync(id);
 
-        if (product == null) return NotFound();
+        if (product == null) return NotFound(error404);
 
         return product;
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace WebApi_AspNet_Core;
 
@@ -11,10 +12,14 @@ namespace WebApi_AspNet_Core;
 public class SuppliersController : ControllerBase
 {
     private readonly ApiDbContext _context;
+    //private readonly IOptions<SupplierErrors> _supplierErrors;
+    private readonly SupplierErrors _supplierErrors;
 
-    public SuppliersController(ApiDbContext context)
+    public SuppliersController(ApiDbContext context, IOptions<SupplierErrors> supplierErrors)
     {
         _context = context;
+        //_supplierErrors = supplierErrors;
+        _supplierErrors = supplierErrors.Value;
     }
 
     // GET: api/Suppleirs
@@ -39,11 +44,15 @@ public class SuppliersController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<Supplier>> GetSuppleir(int id)
     {
+        //var error404 = _supplierErrors.Value.error404;
+        var error404 = _supplierErrors.error404;
+
+
         if (_context.Supliers == null) return NotFound();
 
         var suppleir = await _context.Supliers.FindAsync(id);
 
-        if (suppleir == null) return NotFound();
+        if (suppleir == null) return NotFound(error404);
 
         return suppleir;
     }
