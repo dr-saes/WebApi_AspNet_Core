@@ -20,6 +20,8 @@ public class ProductsController : ControllerBase
         _configuration = configuration;
     }
 
+
+
     // GET: api/Products
     [AllowAnonymous]
     [HttpGet]

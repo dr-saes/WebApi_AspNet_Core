@@ -9,6 +9,11 @@ public class ApiDbContext : IdentityDbContext
     {
     }
 
+    public ApiDbContext()
+    {
+
+    }
+
     public DbSet<Product> Products { get; set; }
     public DbSet<Supplier> Supliers { get; set; }
 }
