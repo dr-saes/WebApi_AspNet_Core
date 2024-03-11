@@ -85,11 +85,18 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<Product>> PutProduct(int id, Product product)
+    public async Task<ActionResult<Product>> PutProduct(int id, Product productRequest)
     {
+        var product = _context.Products.FirstOrDefault(item => item.Id == id);
         if (product == null) { return BadRequest("Product object is null"); }
-        if (id != product.Id) { return BadRequest("Id does not match any Id in Products!"); }
+        if (productRequest == null) { return BadRequest("Product object is null"); }
+        if (id != product.Id) { return BadRequest("Parameter ID is different from product ID!"); }
         if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
+
+        product.Name = productRequest.Name;
+        product.Price = productRequest.Price;
+        product.StockQuantity = productRequest.StockQuantity;
+        product.Description = productRequest.Description;
 
         _context.Products.Update(product);
 
