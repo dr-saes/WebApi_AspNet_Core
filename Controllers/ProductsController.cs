@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi_AspNet_Core;
 
@@ -20,8 +21,6 @@ public class ProductsController : ControllerBase
         _configuration = configuration;
     }
 
-
-
     // GET: api/Products
     [AllowAnonymous]
     [HttpGet]
@@ -31,7 +30,8 @@ public class ProductsController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
-        if (_context.Products == null) return NotFound();
+
+        if (_context.Products == null || _context.Products.Count() == 0) return NotFound();
 
         return await _context.Products.ToListAsync();
     }
@@ -44,12 +44,14 @@ public class ProductsController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var error404 = _configuration.GetValue<string>("ProductErrorMessages:error404");
-        if (_context.Products == null) return NotFound();
+        //var error404 = _configuration.GetValue<string>("ProductErrorMessages:error404");
+        //var error404 = "Product not found!";
+
+        if (_context.Products == null || _context.Products.Count() == 0) return NotFound();
 
         var product = await _context.Products.FindAsync(id);
 
-        if (product == null) return NotFound(error404);
+        if (product == null) return NotFound();
 
         return product;
     }
@@ -62,6 +64,7 @@ public class ProductsController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<Product>> PostProduct(Product product)
     {
+
         if (_context.Products == null) return Problem("Error creating the product, contact support.");
 
         if (!ModelState.IsValid)
