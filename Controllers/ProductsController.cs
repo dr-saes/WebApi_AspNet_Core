@@ -87,11 +87,11 @@ public class ProductsController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<Product>> PutProduct(int id, Product product)
     {
-        if (id != product.Id) return BadRequest();
-        if (!ModelState.IsValid) return ValidationProblem(ModelState);
+        if (product == null) { return BadRequest("Product object is null"); }
+        if (id != product.Id) { return BadRequest("Id does not match any Id in Products!"); }
+        if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
 
-        //_context.Products.Update(product);
-        _context.Entry(product).State = EntityState.Modified; // not necessary!
+        _context.Products.Update(product);
 
         try
         {
@@ -99,12 +99,13 @@ public class ProductsController : ControllerBase
         }
         catch (DBConcurrencyException ex)
         {
-            if (!ProductExists(id)) return NotFound();
-            else throw new Exception(ex.Message);
+            if (!ProductExists(id)) { return NotFound(); }
+            else { throw new Exception(ex.Message); }
         }
 
         return NoContent();
     }
+
 
     // DELETE: api/Products/{id}
     [Authorize(Roles = "Admin")]
