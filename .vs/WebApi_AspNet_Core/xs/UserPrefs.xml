@@ -1,21 +1,26 @@
 ﻿<Properties StartupConfiguration="{42D08354-471F-4273-B48F-17A37E3EACF9}|development">
-  <MonoDevelop.Ide.ItemProperties.WebApiTests FirstBuild="True" />
-  <MonoDevelop.Ide.ItemProperties.WebApi__AspNet__Core PreferredExecutionTarget="/Applications/Firefox.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../WebApiTests/ProductsControllerTests.cs">
+    <Files>
+      <File FileName="../WebApiTests/ProductsControllerTests.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WebApi_AspNet_Core">
-            <Node name="WebApiTests" selected="True" />
+            <Node name="WebApiTests" expanded="True">
+              <Node name="ProductsControllerTests.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.WebApi__AspNet__Core PreferredExecutionTarget="/Applications/Firefox.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.WebApiTests FirstBuild="True" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
