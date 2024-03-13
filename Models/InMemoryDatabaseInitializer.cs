@@ -6,13 +6,13 @@ namespace WebApi_AspNet_Core
 {
     public class InMemoryDatabaseInitializer
     {
-        public static void Initialize(ApiDbContext context)
+        public static void InitializeDB(ApiDbContext context)
         {
             context.Database.EnsureCreated();
 
             if (context.Products.Any())
             {
-                return; // O banco de dados já foi populado
+                return; // O banco de dados já foi populad
             }
 
             var products = new List<Product>
@@ -21,6 +21,21 @@ namespace WebApi_AspNet_Core
                 new Product { Name = "Product 2", Price = 20.50m, StockQuantity = 50, Description = "Description 2" },
                 new Product { Name = "Product 3", Price = 15.75m, StockQuantity = 75, Description = "Description 3" }
             };
+
+            context.Products.AddRange(products);
+            context.SaveChanges();
+        }
+
+        public static void InitializeNullDB(ApiDbContext context)
+        {
+            context.Database.EnsureCreated();
+
+            if (context.Products.Any())
+            {
+                return;
+            }
+
+            var products = new List<Product>();
 
             context.Products.AddRange(products);
             context.SaveChanges();

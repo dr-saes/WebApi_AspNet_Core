@@ -4106,11 +4106,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/WebApi_AspNet_Core.csproj",
+      "projectUniqueName": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core-WithTests/WebApi_AspNet_Core/WebApi_AspNet_Core.csproj",
       "projectName": "WebApi_AspNet_Core",
-      "projectPath": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/WebApi_AspNet_Core.csproj",
+      "projectPath": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core-WithTests/WebApi_AspNet_Core/WebApi_AspNet_Core.csproj",
       "packagesPath": "/Users/danielsaes/.nuget/packages/",
-      "outputPath": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/obj/",
+      "outputPath": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core-WithTests/WebApi_AspNet_Core/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/danielsaes/.nuget/NuGet/NuGet.Config"
