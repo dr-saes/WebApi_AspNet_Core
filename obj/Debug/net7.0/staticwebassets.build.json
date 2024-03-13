@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1LAKHCQntV5rhv6HVHDdFCvxEJuufR0PNvqoFuSuzh0=",
+  "Hash": "VGzS6W+ufCbj1r/4azkRTlzfTHHQx8KUE0EEd/snp4w=",
   "Source": "WebApi_AspNet_Core",
   "BasePath": "_content/WebApi_AspNet_Core",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "WebApi_AspNet_Core/wwwroot",
       "Source": "WebApi_AspNet_Core",
-      "ContentRoot": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core/wwwroot/",
+      "ContentRoot": "/Users/danielsaes/Documents/Projects/vs-codeProjects/WebApi_AspNet_Core-WithTests/WebApi_AspNet_Core/wwwroot/",
       "BasePath": "_content/WebApi_AspNet_Core",
       "Pattern": "**"
     }
