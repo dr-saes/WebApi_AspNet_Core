@@ -12,7 +12,7 @@ namespace WebApi_AspNet_Core
 
             if (context.Products.Any())
             {
-                return; // O banco de dados já foi populad
+                return; // O banco de dados já foi populado
             }
 
             var products = new List<Product>
