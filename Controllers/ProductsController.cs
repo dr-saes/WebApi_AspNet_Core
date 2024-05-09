@@ -29,12 +29,13 @@ public class ProductsController : ControllerBase, IProductsServices
     [Route("products")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    //[ProducesDefaultResponseType]
     public Task<ActionResult<IEnumerable<Product>>> GetProducts()
     { return _services.GetProducts(); }
 
     // GET: api/Products/{id}
-    //[AllowAnonymous]
+    [AllowAnonymous]
     [HttpGet]
     [Route("products/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

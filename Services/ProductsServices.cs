@@ -20,9 +20,14 @@ public class ProductsServices : IProductsServices
         try
         {
             var products = await _context.Products.ToListAsync();
+            if (products == null || products.Count == 0)
+            { return new NotFoundObjectResult($"The products were not found."); }
             return products;
         }
-        catch (System.ArgumentNullException) { return new NotFoundResult(); }
+        catch (System.InvalidOperationException ex)
+        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
+        catch (System.Exception ex)
+        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
     }
 
     public async Task<ActionResult<Product>> GetProduct(int id)
@@ -30,8 +35,11 @@ public class ProductsServices : IProductsServices
         try
         {
             var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            { return new NotFoundObjectResult($"The product with ID {id} was not found."); }
             return product;
         }
-        catch (System.Exception) { return new NotFoundResult(); }
+        catch (System.Exception ex)
+        { return new ObjectResult(ex.Message) { StatusCode = 404 }; }
     }
 }
