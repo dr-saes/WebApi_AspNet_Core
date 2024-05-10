@@ -233,7 +233,7 @@ namespace WebApi_AspNet_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("WebApi_AspNet_Core.Supplier", b =>
@@ -260,7 +260,7 @@ namespace WebApi_AspNet_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supliers");
+                    b.ToTable("Supliers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
