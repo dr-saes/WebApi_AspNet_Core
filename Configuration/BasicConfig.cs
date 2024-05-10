@@ -18,6 +18,9 @@ public static class BasicConfig
         builder.Services.Configure<SupplierErrors>(builder.Configuration.GetSection(SupplierErrors.ConfigName));
         builder.Services.AddScoped<IProductsServices, ProductsServices>();
 
+
+
+
         //Cors
         // builder.Services.AddCors(option =>
         // {

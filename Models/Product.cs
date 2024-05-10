@@ -4,6 +4,20 @@ namespace WebApi_AspNet_Core;
 
 public class Product
 {
+    private ProductDtoRequest productDtoRequest;
+
+    public Product()
+    {
+
+    }
+    public Product(ProductDtoRequest productDtoRequest)
+    {
+        Name = productDtoRequest.Name;
+        Description = productDtoRequest.Description;
+        Price = productDtoRequest.Price;
+        StockQuantity = productDtoRequest.StockQuantity;
+    }
+
     [Key]
     public int Id { get; set; }
 

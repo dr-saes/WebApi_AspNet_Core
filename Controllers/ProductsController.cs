@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace WebApi_AspNet_Core;
 
 [Authorize]
@@ -23,47 +24,39 @@ public class ProductsController : ControllerBase, IProductsServices
         _services = services;
     }
 
-    // GET: api/Products
+    // GET: /products
     [AllowAnonymous]
     [HttpGet]
     [Route("products")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     //[ProducesDefaultResponseType]
-    public Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
     { return _services.GetProducts(); }
 
-    // GET: api/Products/{id}
+    // GET: /products/{id}
     [AllowAnonymous]
     [HttpGet]
     [Route("products/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    public Task<ActionResult<Product>> GetProduct(int id)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    // [ProducesDefaultResponseType]
+    public Task<ActionResult<ProductDto>> GetProduct(int id)
     { return _services.GetProduct(id); }
 
-    // POST: api/Products
+    // POST: /products
+    [AllowAnonymous]
     [HttpPost]
     [Route("products")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesDefaultResponseType]
-    public async Task<ActionResult<Product>> PostProduct(Product product)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    //[ProducesDefaultResponseType]
+    public async Task<ActionResult<ProductDto>> PostProduct(ProductDtoRequest product)
     {
-
-        if (_context.Products == null) return Problem("Error creating the product, contact support.");
-
-        if (!ModelState.IsValid)
-        {
-            return ValidationProblem(ModelState);
-        }
-
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+        await _services.PostProduct(product);
+        return Ok(new ProductDto(product));
     }
 
     // PUT: api/Products/{id}
