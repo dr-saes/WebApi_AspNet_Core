@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections;
+using System.Net;
 
 
 namespace WebApi_AspNet_Core;
@@ -11,28 +13,49 @@ namespace WebApi_AspNet_Core;
 [Authorize]
 [ApiController]
 [Route("webapi-aspnet-core/")]
-public class ProductsController : ControllerBase, IProductsServices
+public class ProductsController : BasicController
 {
     private readonly ApiDbContext _context;
-    private readonly IConfiguration _configuration;
     private readonly IProductsServices _services;
 
-    public ProductsController(ApiDbContext context, IConfiguration configuration, IProductsServices services)
+    public ProductsController(ApiDbContext context, IProductsServices services)
     {
         _context = context;
-        _configuration = configuration;
         _services = services;
     }
 
     // GET: /products
+
+    // <remarks>
+    // This route is used to search for all products registered in the database.
+    // </remarks>
+    // <summary>
+    // Check all products
+    // </summary>
+    /// <response code="200">Returns a list with all products or an empty list.</response>
+    // <response code="500">Returns the error message indicating an unforeseen failure in the services. Contact the service provider.</response>
     [AllowAnonymous]
     [HttpGet]
-    [Route("products")]
+    [Route("/products")]
+    [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[ProducesDefaultResponseType]
-    public Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
-    { return _services.GetProducts(); }
+
+    public IActionResult GetProducts()
+    {
+        try
+        {
+            List<ProductDto> productDtos = _services.GetProducts();
+            return CreateResponse(HttpStatusCode.OK, productDtos);
+        }
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (Exception ex)
+        { return StatusCode(500, ex.Message); }
+    }
+
 
     // GET: /products/{id}
     [AllowAnonymous]

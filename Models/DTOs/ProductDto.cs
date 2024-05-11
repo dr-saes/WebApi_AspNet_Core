@@ -6,24 +6,6 @@ public class ProductDto
 {
     public ProductDto() { }
 
-    public ProductDto(Product product, int id)
-    {
-        this.Name = product.Name;
-        this.Price = product.Price;
-        this.Description = product.Description;
-    }
-
-    public ProductDto(List<Product> products)
-    {
-        foreach (var product in products)
-        {
-            this.Name = product.Name;
-            this.Price = product.Price;
-            this.Description = product.Description;
-        }
-
-    }
-
     public ProductDto(Product product)
     {
         this.Name = product.Name;

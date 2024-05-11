@@ -15,30 +15,20 @@ public class ProductsServices : ControllerBase, IProductsServices
         _context = context;
     }
 
-    public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
+    public List<ProductDto> GetProducts()
     {
-        try
+        var products = _context.Products.ToList();
+        if (products == null || products.Count == 0)
+        { return new List<ProductDto>(); }
+
+        var productsDto = products.Select(p => new ProductDto
         {
-            var products = await _context.Products.ToListAsync();
-            if (products == null || products.Count == 0)
-            { return new NotFoundObjectResult($"The products were not found."); }
+            Price = p.Price,
+            Name = p.Name,
+            Description = p.Description
+        }).ToList();
 
-            var productsDto = products.Select(p => new ProductDto
-            {
-                Price = p.Price,
-                Name = p.Name,
-                Description = p.Description
-
-            }).ToList();
-
-            return productsDto;
-        }
-        catch (System.InvalidOperationException ex)
-        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
-        catch (System.ArgumentNullException ex)
-        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
-        catch (System.Exception ex)
-        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
+        return productsDto;
     }
 
     public async Task<ActionResult<ProductDto>> GetProduct(int id)
