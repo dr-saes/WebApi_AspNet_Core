@@ -4,8 +4,9 @@ namespace WebApi_AspNet_Core;
 
 public interface IProductsServices
 {
-    public List<ProductDto> GetProducts();
-    Task<ActionResult<ProductDto>> GetProduct(int id);
-    Task<ActionResult<ProductDto>> PostProduct(ProductDtoRequest product);
+    List<ProductDto> GetProducts();
+    ProductDto GetProduct(int id);
+    ProductDto PostProduct(ProductDtoRequest productDtoRequest);
+    ProductDto PutProduct(int id, ProductDto productDto);
 
 }

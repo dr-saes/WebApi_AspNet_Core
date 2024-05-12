@@ -9,71 +9,68 @@ public class ProductsServices : ControllerBase, IProductsServices
 
 {
     private readonly ApiDbContext? _context;
-
     public ProductsServices(ApiDbContext context)
     {
         _context = context;
     }
 
+    //GetAll
     public List<ProductDto> GetProducts()
     {
         var products = _context.Products.ToList();
         if (products == null || products.Count == 0)
         { return new List<ProductDto>(); }
-
         var productsDto = products.Select(p => new ProductDto
         {
             Price = p.Price,
             Name = p.Name,
-            Description = p.Description
+            Description = p.Description,
+            StockQuantity = p.StockQuantity
         }).ToList();
-
         return productsDto;
     }
 
-    public async Task<ActionResult<ProductDto>> GetProduct(int id)
+    //GetId
+    public ProductDto GetProduct(int id)
     {
-        try
+        var product = _context.Products.Find(id);
+        if (product == null)
+            throw new Exception($"The product with ID {id} was not found. (404)");
+        var productDto = new ProductDto(product);
+        return productDto;
+    }
+
+    //Post
+    public ProductDto PostProduct(ProductDtoRequest productDtoRequest)
+    {
+        if (!ModelState.IsValid)
+            throw new Exception($"Bad Rquest - The product is invalid. (400)");
+        var product = new Product(productDtoRequest);
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            { return new NotFoundObjectResult($"The product with ID {id} was not found."); }
-
+            _context.Products.Add(product);
+            _context.SaveChanges();
             var productDto = new ProductDto(product);
-
             return productDto;
         }
-        catch (System.InvalidOperationException ex)
-        { return new ObjectResult(ex.Message) { StatusCode = 500 }; }
-        catch (System.Exception ex)
-        { return new ObjectResult(ex.Message) { StatusCode = 404 }; }
     }
 
-    public async Task<ActionResult<ProductDto>> PostProduct(ProductDtoRequest productDtoRequest)
+    //PutId
+    public ProductDto PutProduct(int id, ProductDto productDto)
     {
-        if (productDtoRequest != null)
-        {
-            var product = new Product(productDtoRequest);
 
-
-            if (!ModelState.IsValid)
-            { return BadRequest(ModelState); }
-            try
-            {
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-                var productDto = new ProductDto(product);
-                return productDto;
-            }
-            catch (DbUpdateException ex)
-            { return new ObjectResult($"An error occurred while saving the product to the database: {ex.Message}") { StatusCode = 500 }; }
-            catch (System.OperationCanceledException ex)
-            { return new ObjectResult($"An error occurred while saving the product to the database: {ex.Message}") { StatusCode = 500 }; }
-            catch (System.Exception ex)
-            { return new ObjectResult($"An error occurred while creating the product: {ex.Message}") { StatusCode = 500 }; }
-        }
+        var product = _context.Products.Find(id);
+        if (product == null)
+            throw new Exception($"The product with ID {id} was not found. (404)");
         else
-        { { return new ObjectResult("Product is null.") { StatusCode = 400 }; } }
+        {
+            product.Name = string.IsNullOrEmpty(productDto.Name) ? product.Name : productDto.Name;
+            product.Description = string.IsNullOrEmpty(productDto.Description) ? product.Description : productDto.Description;
+            product.Price = productDto.Price == 0 ? product.Price : productDto.Price;
+            product.StockQuantity = productDto.StockQuantity == 0 ? product.StockQuantity : productDto.StockQuantity;
+            _context.Products.Update(product);
+            _context.SaveChanges();
+            var productDtoNew = new ProductDto(product);
+            return productDtoNew;
+        }
     }
-
 }

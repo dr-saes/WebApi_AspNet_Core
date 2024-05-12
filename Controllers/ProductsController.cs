@@ -23,24 +23,21 @@ public class ProductsController : BasicController
         _context = context;
         _services = services;
     }
-
     // GET: /products
-
-    // <remarks>
-    // This route is used to search for all products registered in the database.
-    // </remarks>
-    // <summary>
-    // Check all products
-    // </summary>
-    /// <response code="200">Returns a list with all products or an empty list.</response>
-    // <response code="500">Returns the error message indicating an unforeseen failure in the services. Contact the service provider.</response>
+    /// <remarks>
+    /// This route is used to search for all products registered in the database.
+    /// </remarks>
+    /// <summary>
+    /// Check all products
+    /// </summary>
+    /// <response code="200">Returns all products.</response>
+    /// <response code="500">Returns the error message indicating an unforeseen failure in the services. Contact the service provider.</response>
     [AllowAnonymous]
     [HttpGet]
     [Route("/products")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
     public IActionResult GetProducts()
     {
         try
@@ -56,7 +53,6 @@ public class ProductsController : BasicController
         { return StatusCode(500, ex.Message); }
     }
 
-
     // GET: /products/{id}
     [AllowAnonymous]
     [HttpGet]
@@ -64,57 +60,85 @@ public class ProductsController : BasicController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    // [ProducesDefaultResponseType]
-    public Task<ActionResult<ProductDto>> GetProduct(int id)
-    { return _services.GetProduct(id); }
+    public IActionResult GetProduct(int id)
+    {
+        int statusCode = 0;
+        try
+        {
+            ProductDto productDto = _services.GetProduct(id);
+            return CreateResponse(HttpStatusCode.OK, productDto);
+        }
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (Exception ex)
+        {
+            if (ex.Message.Contains("404"))
+            { statusCode = 404; }
+            else { statusCode = 500; }
+            return StatusCode(statusCode, ex.Message);
+        }
+    }
 
     // POST: /products
     [AllowAnonymous]
     [HttpPost]
-    [Route("products")]
+    [Route("/products")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[ProducesDefaultResponseType]
-    public async Task<ActionResult<ProductDto>> PostProduct(ProductDtoRequest product)
+    public IActionResult PostProduct(ProductDtoRequest product)
     {
-        await _services.PostProduct(product);
-        return Ok(new ProductDto(product));
+        try
+        {
+            ProductDto productDto = _services.PostProduct(product);
+            return Created("", productDto);
+        }
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (DbUpdateException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (OperationCanceledException ex)
+        { return StatusCode(500, ex.Message); }
     }
 
+
     // PUT: api/Products/{id}
+    [AllowAnonymous]
     [HttpPut]
     [Route("products/{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    public async Task<ActionResult<Product>> PutProduct(int id, Product productRequest)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult PutProduct(int id, ProductDto productRequest)
     {
-        var product = _context.Products.FirstOrDefault(item => item.Id == id);
-        if (product == null) { return BadRequest("Product object is null"); }
-        if (productRequest == null) { return BadRequest("Product object is null"); }
-        if (id != product.Id) { return BadRequest("Parameter ID is different from product ID!"); }
-        if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
-
-        product.Name = productRequest.Name;
-        product.Price = productRequest.Price;
-        product.StockQuantity = productRequest.StockQuantity;
-        product.Description = productRequest.Description;
-
-        _context.Products.Update(product);
-
+        int statusCode = 0;
         try
         {
-            await _context.SaveChangesAsync();
+            ProductDto productDto = _services.PutProduct(id, productRequest);
+            return NoContent();
         }
-        catch (DBConcurrencyException ex)
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (DbUpdateException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (OperationCanceledException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (Exception ex)
         {
-            if (!ProductExists(id)) { return NotFound(); }
-            else { throw new Exception(ex.Message); }
+            if (ex.Message.Contains("404"))
+            { statusCode = 404; }
+            else { statusCode = 500; }
+            return StatusCode(statusCode, ex.Message);
         }
 
-        return NoContent();
+
     }
 
 
@@ -136,10 +160,6 @@ public class ProductsController : BasicController
         return NoContent();
     }
 
-    private bool ProductExists(int id)
-    {
-        return _context.Products.Any(e => e.Id == id);
-    }
 }
 
 
