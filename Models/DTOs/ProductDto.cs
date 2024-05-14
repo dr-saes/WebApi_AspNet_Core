@@ -14,19 +14,13 @@ public class ProductDto
         this.StockQuantity = product.StockQuantity;
     }
 
-    public ProductDto(ProductDtoRequest productDtoRequest)
-    {
-        this.Name = productDtoRequest.Name;
-        this.Description = productDtoRequest.Description;
-        this.Price = productDtoRequest.Price;
-        this.StockQuantity = productDtoRequest.StockQuantity;
-    }
-
-
     public string? Name { get; set; }
     public string? Description { get; set; }
     public decimal Price { get; set; }
     public int StockQuantity { get; set; }
+
+
+
 
 
 

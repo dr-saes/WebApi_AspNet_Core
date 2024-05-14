@@ -11,8 +11,8 @@ using WebApi_AspNet_Core;
 namespace WebApi_AspNet_Core.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240218165116_Supliers")]
-    partial class Supliers
+    [Migration("20240514003916_SupplierModelUpdate")]
+    partial class SupplierModelUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,7 +234,12 @@ namespace WebApi_AspNet_Core.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
                 });
@@ -258,12 +263,17 @@ namespace WebApi_AspNet_Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("SupplierType")
-                        .HasColumnType("int");
+                    b.Property<string>("PersonType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SupplierType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supliers");
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -315,6 +325,17 @@ namespace WebApi_AspNet_Core.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApi_AspNet_Core.Product", b =>
+                {
+                    b.HasOne("WebApi_AspNet_Core.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
                 });
 #pragma warning restore 612, 618
         }

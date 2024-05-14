@@ -15,6 +15,6 @@ public class ApiDbContext : IdentityDbContext
     }
 
     public DbSet<Product> Products { get; set; }
-    public DbSet<Supplier> Supliers { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
 }
 

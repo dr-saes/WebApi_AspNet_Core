@@ -17,6 +17,7 @@ public static class BasicConfig
         //builder.Services.Configure<SupplierErrors>(builder.Configuration.GetSection("SupplierErrorMessages"));
         builder.Services.Configure<SupplierErrors>(builder.Configuration.GetSection(SupplierErrors.ConfigName));
         builder.Services.AddScoped<IProductsServices, ProductsServices>();
+        builder.Services.AddScoped<ISuppliersServices, SuppliersServices>();
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi_AspNet_Core;
 
@@ -25,5 +26,8 @@ public class Product
     public string Name { get; set; }
     public decimal Price { get; set; }
     public int StockQuantity { get; set; }
+
     public string Description { get; set; }
+    [ForeignKey("SupplierId")]
+    public virtual Supplier Supplier { get; set; }
 }

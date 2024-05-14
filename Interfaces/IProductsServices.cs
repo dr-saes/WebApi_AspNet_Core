@@ -8,5 +8,7 @@ public interface IProductsServices
     ProductDto GetProduct(int id);
     ProductDto PostProduct(ProductDtoRequest productDtoRequest);
     ProductDto PutProduct(int id, ProductDto productDto);
+    ProductDto DeleteProduct(int id);
+
 
 }

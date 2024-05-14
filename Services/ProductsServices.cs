@@ -17,17 +17,18 @@ public class ProductsServices : ControllerBase, IProductsServices
     //GetAll
     public List<ProductDto> GetProducts()
     {
+        List<ProductDto> ProductsDto = new List<ProductDto>();
         var products = _context.Products.ToList();
         if (products == null || products.Count == 0)
         { return new List<ProductDto>(); }
-        var productsDto = products.Select(p => new ProductDto
+
+        foreach (var product in products)
         {
-            Price = p.Price,
-            Name = p.Name,
-            Description = p.Description,
-            StockQuantity = p.StockQuantity
-        }).ToList();
-        return productsDto;
+            var productDto = new ProductDto(product);
+            ProductsDto.Add(productDto);
+        }
+
+        return ProductsDto;
     }
 
     //GetId
@@ -72,5 +73,16 @@ public class ProductsServices : ControllerBase, IProductsServices
             var productDtoNew = new ProductDto(product);
             return productDtoNew;
         }
+    }
+
+    public ProductDto DeleteProduct(int id)
+    {
+        var product = _context.Products.Find(id);
+        if (product == null)
+            throw new Exception($"The product with ID {id} was not found. (404)");
+        _context.Products.Remove(product);
+        _context.SaveChanges();
+        var productDto = new ProductDto(product);
+        return productDto;
     }
 }

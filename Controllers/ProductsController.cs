@@ -23,6 +23,8 @@ public class ProductsController : BasicController
         _context = context;
         _services = services;
     }
+
+
     // GET: /products
     /// <remarks>
     /// This route is used to search for all products registered in the database.
@@ -93,7 +95,7 @@ public class ProductsController : BasicController
         try
         {
             ProductDto productDto = _services.PostProduct(product);
-            return Created("", productDto);
+            return CreateResponse(HttpStatusCode.Created, productDto);
         }
         catch (System.InvalidOperationException ex)
         { return StatusCode(500, ex.Message); }
@@ -109,7 +111,7 @@ public class ProductsController : BasicController
     // PUT: api/Products/{id}
     [AllowAnonymous]
     [HttpPut]
-    [Route("products/{id:int}")]
+    [Route("/products/{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -120,7 +122,7 @@ public class ProductsController : BasicController
         try
         {
             ProductDto productDto = _services.PutProduct(id, productRequest);
-            return NoContent();
+            return CreateResponse(HttpStatusCode.NoContent);
         }
         catch (System.InvalidOperationException ex)
         { return StatusCode(500, ex.Message); }
@@ -137,27 +139,39 @@ public class ProductsController : BasicController
             else { statusCode = 500; }
             return StatusCode(statusCode, ex.Message);
         }
-
-
     }
 
-
     // DELETE: api/Products/{id}
-    [Authorize(Roles = "Admin")]
+    //Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     [HttpDelete]
     [Route("products/{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    public async Task<ActionResult<Product>> DeleteProduct(int id)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult DeleteProduct(int id)
     {
-        if (_context.Products == null) return NotFound();
-        var product = await _context.Products.FindAsync(id);
-        if (product == null) return NotFound();
-
-        _context.Products.Remove(product);
-        await _context.SaveChangesAsync();
-        return NoContent();
+        int statusCode = 0;
+        try
+        {
+            ProductDto productDto = _services.DeleteProduct(id);
+            return CreateResponse(HttpStatusCode.NoContent);
+        }
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (DbUpdateException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (OperationCanceledException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (Exception ex)
+        {
+            if (ex.Message.Contains("404"))
+            { statusCode = 404; }
+            else { statusCode = 500; }
+            return StatusCode(statusCode, ex.Message);
+        }
     }
 
 }

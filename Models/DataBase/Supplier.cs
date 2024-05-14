@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi_AspNet_Core;
 
@@ -15,9 +16,13 @@ public class Supplier
     [StringLength(14, ErrorMessage = "The field {0} must be between {2} and {1} characters")]
     public string? Document { get; set; }
 
-    public int SupplierType { get; set; }
-
+    [Required(ErrorMessage = "Field {0} is mandatory.")]
+    public string? SupplierType { get; set; }
+    [Required(ErrorMessage = "Field {0} is mandatory.")]
+    public string? PersonType { get; set; }
     public bool Active { get; set; }
+
+
 
 
 
