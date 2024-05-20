@@ -5,7 +5,8 @@ namespace WebApi_AspNet_Core;
 public enum SuppliersTypeEnum
 {
 
-    Technology,
-    Clothing,
-    Children
+    TECHNOLOGY,
+    CLOTHING,
+    CHILDREN,
+    OTHERS
 }

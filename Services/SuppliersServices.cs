@@ -40,19 +40,19 @@ public class SuppliersServices : ControllerBase, ISuppliersServices
         return SupplierDto;
     }
 
-    // //Post
-    // public SupplierDto PostSupplier(SupplierDtoRequest SupplierDtoRequest)
-    // {
-    //     if (!ModelState.IsValid)
-    //         throw new Exception($"Bad Rquest - The Supplier is invalid. (400)");
-    //     var Supplier = new Supplier(SupplierDtoRequest);
-    //     {
-    //         _context.Suppliers.Add(Supplier);
-    //         _context.SaveChanges();
-    //         var SupplierDto = new SupplierDto(Supplier);
-    //         return SupplierDto;
-    //     }
-    // }
+    //Post
+    public SupplierDto PostSupplier(SupplierDtoRequest SupplierDtoRequest)
+    {
+        if (!ModelState.IsValid)
+            throw new Exception($"Bad Rquest - The Supplier is invalid. (400)");
+        var Supplier = new Supplier(SupplierDtoRequest);
+        {
+            _context.Suppliers.Add(Supplier);
+            _context.SaveChanges();
+            var SupplierDto = new SupplierDto(Supplier);
+            return SupplierDto;
+        }
+    }
 
     // //PutId
     // public SupplierDto PutSupplier(int id, SupplierDto SupplierDto)
