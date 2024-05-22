@@ -7,7 +7,7 @@ public interface IProductsServices
     List<ProductDto> GetProducts();
     ProductDto GetProduct(int id);
     ProductDto PostProduct(ProductDtoRequest productDtoRequest);
-    ProductDto PutProduct(int id, ProductDto productDto);
+    ProductDto PutProduct(int id, ProductDtoRequest productDtoRequest);
     ProductDto DeleteProduct(int id);
 
 
