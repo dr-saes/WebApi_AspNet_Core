@@ -5,9 +5,9 @@ using System.Globalization;
 namespace WebApi_AspNet_Core;
 
 
-public class ValidationState
+public class Validations
 {
-    public class AllowedSupplierTypeAttribute : ValidationAttribute
+    public class AllowedTypeAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
@@ -22,6 +22,19 @@ public class ValidationState
 
 
             return supplierTypeEnum != null && Enum.IsDefined(typeof(SuppliersTypeEnum), supplierTypeEnum);
+        }
+    }
+
+    public class PriceValidator : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            if (value is decimal price)
+            {
+                return price > 0;
+            }
+
+            return false;
         }
     }
 

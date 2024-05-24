@@ -22,6 +22,21 @@ public class Product
 
     }
 
+    public Product(ProductDtoRequestPut productDtoRequest)
+    {
+        Name = productDtoRequest.Name;
+        Description = productDtoRequest.Description;
+        Price = productDtoRequest.Price;
+        StockQuantity = productDtoRequest.StockQuantity;
+
+        SuppliersTypeEnum? supplierTypeEnum = Enum.TryParse<SuppliersTypeEnum>(productDtoRequest.SupplierType.ToString(), out var parsedEnum)
+               ? parsedEnum
+               : null;
+        SupplierType = parsedEnum;
+
+
+    }
+
 
     [Key]
     public int Id { get; set; }

@@ -56,20 +56,21 @@ public class ProductsServices : ControllerBase, IProductsServices
     }
 
     //PutId
-    public ProductDto PutProduct(int id, ProductDtoRequest productDtoRequest)
+    public ProductDto PutProduct(int id, ProductDtoRequestPut productDtoRequest)
     {
-        if (!ModelState.IsValid)
-            throw new Exception($"Bad Request - The product is invalid. (400)");
 
         var product = _context.Products.Find(id);
         if (product == null)
             throw new Exception($"The product with ID {id} was not found. (404)");
         else
         {
+            product = new Product(productDtoRequest);
             product.Name = string.IsNullOrEmpty(productDtoRequest.Name) ? product.Name : productDtoRequest.Name;
             product.Description = string.IsNullOrEmpty(productDtoRequest.Description) ? product.Description : productDtoRequest.Description;
             product.Price = productDtoRequest.Price == 0 ? product.Price : productDtoRequest.Price;
             product.StockQuantity = productDtoRequest.StockQuantity == 0 ? product.StockQuantity : productDtoRequest.StockQuantity;
+
+
             _context.Products.Update(product);
             _context.SaveChanges();
             var productDto = new ProductDto(product);
