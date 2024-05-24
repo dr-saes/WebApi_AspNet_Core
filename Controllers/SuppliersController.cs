@@ -83,29 +83,29 @@ public class SuppliersController : BasicController
         }
     }
 
-    // // POST: /Suppliers
-    // [AllowAnonymous]
-    // [HttpPost]
-    // [Route("/Suppliers")]
-    // [ProducesResponseType(StatusCodes.Status201Created)]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    // public IActionResult PostSupplier(SupplierDtoRequest Supplier)
-    // {
-    //     try
-    //     {
-    //         SupplierDto SupplierDto = _services.PostSupplier(Supplier);
-    //         return CreateResponse(HttpStatusCode.Created, SupplierDto);
-    //     }
-    //     catch (System.InvalidOperationException ex)
-    //     { return StatusCode(500, ex.Message); }
-    //     catch (System.ArgumentNullException ex)
-    //     { return StatusCode(500, ex.Message); }
-    //     catch (DbUpdateException ex)
-    //     { return StatusCode(500, ex.Message); }
-    //     catch (OperationCanceledException ex)
-    //     { return StatusCode(500, ex.Message); }
-    // }
+    // POST: /Suppliers
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("/Suppliers")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult PostSupplier(SupplierDtoRequest Supplier)
+    {
+        try
+        {
+            SupplierDto SupplierDto = _services.PostSupplier(Supplier);
+            return CreateResponse(HttpStatusCode.Created, SupplierDto);
+        }
+        catch (System.InvalidOperationException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (System.ArgumentNullException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (DbUpdateException ex)
+        { return StatusCode(500, ex.Message); }
+        catch (OperationCanceledException ex)
+        { return StatusCode(500, ex.Message); }
+    }
 
 
     // // PUT: api/Suppliers/{id}

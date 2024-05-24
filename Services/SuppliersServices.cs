@@ -40,37 +40,39 @@ public class SuppliersServices : ControllerBase, ISuppliersServices
         return SupplierDto;
     }
 
-    // //Post
-    // public SupplierDto PostSupplier(SupplierDtoRequest SupplierDtoRequest)
-    // {
-    //     if (!ModelState.IsValid)
-    //         throw new Exception($"Bad Rquest - The Supplier is invalid. (400)");
-    //     var Supplier = new Supplier(SupplierDtoRequest);
-    //     {
-    //         _context.Suppliers.Add(Supplier);
-    //         _context.SaveChanges();
-    //         var SupplierDto = new SupplierDto(Supplier);
-    //         return SupplierDto;
-    //     }
-    // }
+    //Post
+    public SupplierDto PostSupplier(SupplierDtoRequest supplierDtoRequest)
+    {
+        if (!ModelState.IsValid)
+            throw new Exception($"Bad Rquest - The Supplier is invalid. (400)");
+        var Supplier = new Supplier(supplierDtoRequest);
+        {
+            _context.Suppliers.Add(Supplier);
+            _context.SaveChanges();
+            var SupplierDto = new SupplierDto(Supplier);
+            return SupplierDto;
+        }
+    }
 
-    // //PutId
-    // public SupplierDto PutSupplier(int id, SupplierDto SupplierDto)
+    //PutId
+    // public SupplierDto PutSupplier(int id, SupplierDtoRequest supplierDtoRequest)
     // {
-
     //     var Supplier = _context.Suppliers.Find(id);
     //     if (Supplier == null)
     //         throw new Exception($"The Supplier with ID {id} was not found. (404)");
     //     else
     //     {
-    //         Supplier.Name = string.IsNullOrEmpty(SupplierDto.Name) ? Supplier.Name : SupplierDto.Name;
-    //         Supplier.Description = string.IsNullOrEmpty(SupplierDto.Description) ? Supplier.Description : SupplierDto.Description;
-    //         Supplier.Price = SupplierDto.Price == 0 ? Supplier.Price : SupplierDto.Price;
-    //         Supplier.StockQuantity = SupplierDto.StockQuantity == 0 ? Supplier.StockQuantity : SupplierDto.StockQuantity;
+
+    //         Supplier.Name = string.IsNullOrEmpty(supplierDtoRequest.Name) ? Supplier.Name : supplierDtoRequest.Name;
+    //         Supplier.Document = string.IsNullOrEmpty(supplierDtoRequest.Document) ? Supplier.Document : supplierDtoRequest.Name;
+    //         Supplier.SupplierType = string.IsNullOrEmpty(supplierDtoRequest.SupplierType) ? Supplier.SupplierType : supplierDtoRequest.SupplierType;
+
+
+
     //         _context.Suppliers.Update(Supplier);
     //         _context.SaveChanges();
-    //         var SupplierDtoNew = new SupplierDto(Supplier);
-    //         return SupplierDtoNew;
+    //         var SupplierDto = new SupplierDto(Supplier);
+    //         return SupplierDto;
     //     }
     // }
 

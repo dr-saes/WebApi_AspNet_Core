@@ -90,12 +90,12 @@ public class ProductsController : BasicController
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult PostProduct(ProductDtoRequest product)
+    public IActionResult PostProduct(ProductDtoRequest productDtoRequest)
     {
         try
         {
-            ProductDto productDto = _services.PostProduct(product);
-            return CreateResponse(HttpStatusCode.Created, productDto);
+            ProductDto productDto = _services.PostProduct(productDtoRequest);
+            return CreateResponse(HttpStatusCode.Created, productDtoRequest);
         }
         catch (System.InvalidOperationException ex)
         { return StatusCode(500, ex.Message); }
@@ -116,12 +116,12 @@ public class ProductsController : BasicController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult PutProduct(int id, ProductDto productRequest)
+    public IActionResult PutProduct(int id, ProductDtoRequestPut productDtoRequest)
     {
         int statusCode = 0;
         try
         {
-            ProductDto productDto = _services.PutProduct(id, productRequest);
+            ProductDto productDto = _services.PutProduct(id, productDtoRequest);
             return CreateResponse(HttpStatusCode.NoContent);
         }
         catch (System.InvalidOperationException ex)

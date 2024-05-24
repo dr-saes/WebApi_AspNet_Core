@@ -5,19 +5,36 @@ namespace WebApi_AspNet_Core;
 
 public class Product
 {
-    private ProductDtoRequest productDtoRequest;
-    private ProductDto productDto;
-
     public Product()
-    {
-
-    }
+    { }
     public Product(ProductDtoRequest productDtoRequest)
     {
         Name = productDtoRequest.Name;
         Description = productDtoRequest.Description;
         Price = productDtoRequest.Price;
         StockQuantity = productDtoRequest.StockQuantity;
+
+        SuppliersTypeEnum? supplierTypeEnum = Enum.TryParse<SuppliersTypeEnum>(productDtoRequest.SupplierType.ToString(), out var parsedEnum)
+               ? parsedEnum
+               : null;
+        SupplierType = parsedEnum;
+
+
+    }
+
+    public Product(ProductDtoRequestPut productDtoRequest)
+    {
+        Name = productDtoRequest.Name;
+        Description = productDtoRequest.Description;
+        Price = productDtoRequest.Price;
+        StockQuantity = productDtoRequest.StockQuantity;
+
+        SuppliersTypeEnum? supplierTypeEnum = Enum.TryParse<SuppliersTypeEnum>(productDtoRequest.SupplierType.ToString(), out var parsedEnum)
+               ? parsedEnum
+               : null;
+        SupplierType = parsedEnum;
+
+
     }
 
 
@@ -26,8 +43,10 @@ public class Product
     public string Name { get; set; }
     public decimal Price { get; set; }
     public int StockQuantity { get; set; }
-
     public string Description { get; set; }
-    [ForeignKey("SupplierId")]
-    public virtual Supplier Supplier { get; set; }
+    public SuppliersTypeEnum SupplierType { get; set; }
+
+
+
+
 }
